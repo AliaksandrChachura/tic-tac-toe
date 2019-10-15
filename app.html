@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+       class TicTacToe {
+    constructor() {
+        this.matrix =  [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+        this.symbol = 'x';
+        this.rowIndex;
+        this.columnIndex;
+    }
+
+    getCurrentPlayerSymbol() {
+
+        return this.symbol;
+    }
+
+    nextTurn(rowIndex, columnIndex) { 
+        this.rowIndex = rowIndex;
+        this.columnIndex = columnIndex;   
+        alert (this.matrix);
+        if (this.matrix [this.rowIndex][this.columnIndex] === 0) {
+            this.matrix [this.rowIndex][this.columnIndex] = this.symbol;
+            alert (`matrix${this.rowIndex}${this.columnIndex} = ${this.matrix [this.rowIndex][this.columnIndex]}`);
+            if (this.symbol === 'x') {
+                return this.symbol = 'o';
+            }
+            else {
+                return this.symbol = 'x';
+            }
+        }
+        else {
+            return this.symbol;
+        }
+    }
+
+    isFinished() {
+        let row = [];
+        let column = [];
+        let rightDiagonal = [];
+        let leftDiagonal = [];
+        alert (`matrix${this.rowIndex}${this.columnIndex} = ${this.matrix [this.rowIndex][this.columnIndex]}`);
+        for (let i = 0; i < 3; i++) {
+            //alert (`matrix${i}${i} = ${this.matrix [i][i]}`);
+            rightDiagonal.push(this.matrix[i][i]);
+            leftDiagonal.push(this.matrix[3-i-1][i]);
+        }
+        alert (`rightDiag = ${rightDiagonal}, leftDiag = ${leftDiagonal}`);
+        for (let a = 0; a < 3; a++) {
+                column.push(this.matrix[this.rowIndex][a]);
+                row.push(this.matrix[a][this.columnIndex]);
+        }
+        alert (`col = ${column}, row = ${row}`);
+
+       
+        alert(`this.matrix.some((num) => num === 0)${this.matrix} = ${this.matrix.some(num => num === 0)},  this.matrix = ${this.matrix}`); //${row.every(this.symbol)} || column.every(this.symbol) = ${column.every(this.symbol)} || rightDiagonal.every(this.symbol) = ${rightDiagonal.every(this.symbol)}`);
+
+        if (row.every((num) => num === this.symbol) || column.every((num) => num === this.symbol) || rightDiagonal.every((num) => num === this.symbol) || leftDiagonal.every((num) => num === this.symbol)) {
+            return true;
+        }
+        else if (this.matrix.some((num) => num === 0)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    getWinner() {
+
+    }
+
+    noMoreTurns() {
+
+    }
+
+    isDraw() {
+
+    }
+
+    getFieldValue(rowIndex, colIndex) {
+        return this.matrix[rowIndex][colIndex];
+
+    }
+}
+
+
+            let game = new TicTacToe();
+            game.nextTurn(0, 0);
+            alert (game.isFinished());
+            game.nextTurn(1, 1);
+            game.isFinished();
+            game.nextTurn(2, 2);
+            game.isFinished();
+    </script>
+</body>
+</html>
