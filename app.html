@@ -25,10 +25,10 @@
     nextTurn(rowIndex, columnIndex) { 
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;   
-        alert (this.matrix);
+        //alert (this.matrix);
         if (this.matrix [this.rowIndex][this.columnIndex] === 0) {
             this.matrix [this.rowIndex][this.columnIndex] = this.symbol;
-            alert (`matrix${this.rowIndex}${this.columnIndex} = ${this.matrix [this.rowIndex][this.columnIndex]}`);
+            //alert (`matrix${this.rowIndex}${this.columnIndex} = ${this.matrix [this.rowIndex][this.columnIndex]}`);
             if (this.symbol === 'x') {
                 return this.symbol = 'o';
             }
@@ -42,47 +42,109 @@
     }
 
     isFinished() {
+        
         let row = [];
         let column = [];
         let rightDiagonal = [];
         let leftDiagonal = [];
-        alert (`matrix${this.rowIndex}${this.columnIndex} = ${this.matrix [this.rowIndex][this.columnIndex]}`);
+        //alert (`matrix${this.rowIndex}${this.columnIndex} = ${this.matrix [this.rowIndex][this.columnIndex]}`);
         for (let i = 0; i < 3; i++) {
             //alert (`matrix${i}${i} = ${this.matrix [i][i]}`);
             rightDiagonal.push(this.matrix[i][i]);
             leftDiagonal.push(this.matrix[3-i-1][i]);
         }
-        alert (`rightDiag = ${rightDiagonal}, leftDiag = ${leftDiagonal}`);
+        //alert (`rightDiag = ${rightDiagonal}, leftDiag = ${leftDiagonal}`);
         for (let a = 0; a < 3; a++) {
-                column.push(this.matrix[this.rowIndex][a]);
-                row.push(this.matrix[a][this.columnIndex]);
+                row.push(this.matrix[this.rowIndex][a]);
+                column.push(this.matrix[a][this.columnIndex]);
         }
-        alert (`col = ${column}, row = ${row}`);
-
        
-        alert(`this.matrix.some((num) => num === 0)${this.matrix} = ${this.matrix.some(num => num === 0)},  this.matrix = ${this.matrix}`); //${row.every(this.symbol)} || column.every(this.symbol) = ${column.every(this.symbol)} || rightDiagonal.every(this.symbol) = ${rightDiagonal.every(this.symbol)}`);
+        //alert (`col = ${column}, row = ${row}`);
 
-        if (row.every((num) => num === this.symbol) || column.every((num) => num === this.symbol) || rightDiagonal.every((num) => num === this.symbol) || leftDiagonal.every((num) => num === this.symbol)) {
+        let arr = [];
+        for (let i = 0; i < 3; i++) {
+            for (let j =0; j <3; j++) {
+                arr.push(this.matrix[i][j]);
+            }
+        }
+        alert (`${this.matrix[0][0]} | ${this.matrix[0][1]} | ${this.matrix[0][2]}\n
+                ${this.matrix[1][0]} | ${this.matrix[1][1]} | ${this.matrix[1][2]}\n
+                ${this.matrix[2][0]} | ${this.matrix[2][1]} | ${this.matrix[2][2]}\n
+                col = ${column}, ${column.every((num) => num === 'x' || num === 'o' )}\n
+                row = ${row}, ${row.every((num) => num === 'x' || num === 'o' )}\n
+                rightDiagonal = ${rightDiagonal}, ${rightDiagonal.every((num) => num === 'x' || num === 'o' )}\n
+                leftDiagonal = ${leftDiagonal}, ${leftDiagonal.every((num) => num === 'x' || num === 'o' )}\n
+                arr = ${arr.every(num => num === 'x' || num === 'o' )}\n`);  
+        //alert(`arr.some((num) => num === 0)${arr} = ${arr.some(num => num === 0)},  this.matrix = ${this.matrix}`); //${row.every(this.symbol)} || column.every(this.symbol) = ${column.every(this.symbol)} || rightDiagonal.every(this.symbol) = ${rightDiagonal.every(this.symbol)}`);
+
+        if (row.every(num => num === 'x') || row.every(num => num === 'o') || column.every(num => num === 'x') || column.every(num => num === 'o' ) || rightDiagonal.every(num => num === 'x') || rightDiagonal.every(num => num === 'o' ) || leftDiagonal.every(num => num === 'x') || leftDiagonal.every(num => num === 'o' ) || arr.every(num => num === 'x' || num === 'o' )) {
             return true;
         }
-        else if (this.matrix.some((num) => num === 0)) {
-            return false;
-        }
+       
         else {
-            return true;
+            return false;
         }
     }
 
     getWinner() {
+        let row = [];
+        let column = [];
+        let rightDiagonal = [];
+        let leftDiagonal = [];
+        let winner = this.matrix[this.rowIndex][this.columnIndex];
+        for (let i = 0; i < 3; i++) {
+            rightDiagonal.push(this.matrix[i][i]);
+            leftDiagonal.push(this.matrix[3-i-1][i]);
+        }
+        for (let a = 0; a < 3; a++) {
+                column.push(this.matrix[a][this.columnIndex]);
+                row.push(this.matrix[this.rowIndex][a]);
+        }
+        alert (`${this.matrix[0][0]} | ${this.matrix[0][1]} | ${this.matrix[0][2]}\n
+                ${this.matrix[1][0]} | ${this.matrix[1][1]} | ${this.matrix[1][2]}\n
+                ${this.matrix[2][0]} | ${this.matrix[2][1]} | ${this.matrix[2][2]}\n
+                col = ${column}, ${column.every((num) => num === 'x') || column.every((num) => num === 'o' )}\n
+                row = ${row}, ${row.every((num) => num === 'x') || row.every((num) => num === 'o' )}\n
+                rightDiagonal = ${rightDiagonal}, ${rightDiagonal.every((num) => num === 'x') || rightDiagonal.every((num) => num === 'o' )}\n
+                leftDiagonal = ${leftDiagonal}, ${leftDiagonal.every((num) => num === 'x') || leftDiagonal.every((num) => num === 'o' )}\n
+                this.matrix = ${winner}`);
 
+        if (row.every(num => num === 'x') || row.every(num => num === 'o') || column.every(num => num === 'x') || column.every(num => num === 'o' ) || rightDiagonal.every(num => num === 'x') || rightDiagonal.every(num => num === 'o' ) || leftDiagonal.every(num => num === 'x') || leftDiagonal.every(num => num === 'o' ) ) {
+            return winner;
+        }
+        else {
+            return null;
+        }
+       
+        
     }
 
     noMoreTurns() {
-
+        let arr = [];
+        for (let i = 0; i < 3; i++) {
+            for (let j =0; j < 3; j++) {
+                arr.push(this.matrix[i][j]);
+            }
+        }
+            alert (`arr = ${arr}, = ${arr.every(num => num === 'x' || num === 'o' )}`);
+           if (arr.every(num => num === 'x' || num === 'o' )) {
+               return true;
+           }
+           else {
+               return false;
+            }
     }
+    
 
     isDraw() {
-
+        alert (`this.noMoreTurns() =${this.noMoreTurns()}\n
+        this.getWinner = ${this.getWinner()}`)
+        if (this.noMoreTurns() === false || this.getWinner() !== null ) {
+           return false
+       }
+       else {
+           return true;
+       }
     }
 
     getFieldValue(rowIndex, colIndex) {
@@ -93,12 +155,82 @@
 
 
             let game = new TicTacToe();
-            game.nextTurn(0, 0);
-            alert (game.isFinished());
-            game.nextTurn(1, 1);
-            game.isFinished();
+            game.nextTurn(1, 0);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(1, 0);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
             game.nextTurn(2, 2);
-            game.isFinished();
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(0, 2);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(1, 0);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(2, 2);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(1, 1);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(0, 2);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(2, 2);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(0, 2);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(0, 2);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(1, 1);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(1, 2);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(1, 1);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(1, 2);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(2, 0);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(0, 0);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(2, 0);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(1, 1);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(0, 1);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(1, 2);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(1, 1);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(0, 1);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(2, 0);
+            alert (`game.isDraw (false) = ${game.isDraw()}`);
+
+            game.nextTurn(2, 1);
+            alert (`game.isDraw (true) = ${game.isDraw()}`);
+
+
     </script>
 </body>
 </html>
